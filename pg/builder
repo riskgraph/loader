@@ -1,0 +1,32 @@
+#!/bin/bash
+# Build logical views for a study
+# subjects and subjects i cohorts - base views
+if [ "$2" == '' ]
+      then
+        PGSERV="localhost"
+        else
+        PGSERV="$2"
+fi
+if [ "$1" == '' ]
+      then
+        DB="research"
+        else
+        DB="$2"
+fi
+echo 'ae'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/ae.sql
+echo 'lb'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/lb.sql
+echo 'rsp'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/rsp.sql
+echo 'adsubjectlist'
+#csvcut -c SUBJID,TRT,ATRT,B_ECOG,DIAGTYPE adsubjectlist.csv > /tmp/subjects.csv
+csvcut -c SUBJID,DIAGTYPE adsubjectlist.csv > /tmp/subjects.csv
+echo 'subjects'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/subjects.sql
+echo 'functions'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/functions.sql
+echo 'views'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/views.sql
+echo 'aggregates'
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/aggregates.sql

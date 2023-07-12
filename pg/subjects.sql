@@ -26,6 +26,9 @@ CREATE index idx_subjects ON subjects(subjid);
 --
 -- add columns for metrics calculation and for red flags
 --
+ALTER TABLE subjects add column customer_id    integer default 0;  -- denominator
+ALTER TABLE subjects add column study_id       integer default 0;  -- numerator
+
 ALTER TABLE subjects add column ab    float default 0;  -- denominator
 ALTER TABLE subjects add column hits  float default 0;  -- numerator
 ALTER TABLE subjects add column slugs  float default 0; -- numerator

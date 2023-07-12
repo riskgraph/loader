@@ -7,16 +7,20 @@ UPDATE subjects
 SET ab = (SELECT count
           FROM atbats
           WHERE subjects.subjid = atbats.subjid);
+-- Remofe patiets who did not have treatment
+DELETE from subjects where ab is null;
+
 --
 UPDATE subjects
 SET hits = (SELECT count
           FROM hits
           WHERE subjects.subjid = hits.subjid);
-UPDATE subjects SET hits = 0 WHERE hits is null;
+UPDATE subjects SET hits = -1 WHERE hits is null;
 --
 --
-UPDATE subjects
-SET obp = hits/ab where ab is not null;
+UPDATE subjects SET obp=-1 WHERE hits is null;
+UPDATE subjects SET obp = hits/ab WHERE hits is not  null;
+
 --
 --
 UPDATE subjects
@@ -25,11 +29,11 @@ SET slugs = (SELECT slg_numerator
           WHERE subjects.subjid = csn.subjid);
 --
 --
-UPDATE subjects
-    SET slg = slugs/ab where ab is not null;
+UPDATE subjects  SET slg=-1 WHERE hits is null;
+UPDATE subjects  SET slg = slugs/ab where ab is not null;
 
 UPDATE subjects
-    SET efficacy = obp + slg where ab is not null;
+    SET efficacy = obp + slg;
 --
 --
 UPDATE subjects
@@ -46,5 +50,5 @@ SET outs = (SELECT count
           FROM compute_toxicity_numerator ctn
           WHERE subjects.subjid = ctn.subjid);
 
-UPDATE subjects
-    SET toxicity = outs/ab;
+UPDATE subjects   SET toxicity=-1         WHERE outs is null;
+UPDATE subjects   SET toxicity = outs/ab  WHERE outs is not null;

@@ -14,19 +14,19 @@ if [ "$1" == '' ]
         DB="$2"
 fi
 echo 'ae'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/ae.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/ae.sql
 echo 'lb'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/lb.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/lb.sql
 echo 'rsp'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/rsp.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/rsp.sql
 echo 'adsubjectlist'
 #csvcut -c SUBJID,TRT,ATRT,B_ECOG,DIAGTYPE adsubjectlist.csv > /tmp/subjects.csv
 csvcut -c SUBJID,DIAGTYPE adsubjectlist.csv > /tmp/subjects.csv
 echo 'subjects'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/subjects.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/subjects.sql
 echo 'functions'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/functions.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/functions.sql
 echo 'views'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/views.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/views.sql
 echo 'aggregates'
-psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph-working/aggregates.sql
+psql -Upostgres -h$PGSERV $DB < ~/code/riskgraph/loader/pg/aggregates.sql

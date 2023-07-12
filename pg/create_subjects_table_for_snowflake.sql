@@ -3,6 +3,8 @@
 CREATE TABLE subjects (
     subjid      integer,                  -- SUBJID a runnig number from 1 to infinity
     diagtype    varchar,                  -- diagnosis type
+    customer_id integer,                  -- UID of a customer
+    study_id    integer,                  -- UID of a study run by a customer 
     ab          float DEFAULT 0,          -- AB  At bats : number of observations of tumor
     hits        float DEFAULT 0,          -- Numerator for obp, 'SD', 'PR', 'CR'
     slugs       float DEFAULT 0,          -- Numerator for slg,  2PR + 4CR
